@@ -23,7 +23,7 @@ define Package/$(PKG_NAME)
   SUBMENU:=TPM2
   TITLE:=TPM2-TSS
   URL:=https://github.com/tpm2-software/tpm2-tss
-  DEPENDS+= +libgcrypt +libopenssl
+  DEPENDS+= +libgcrypt +libopenssl +libcurl +libjson-c +libuuid
 endef
 
 TARGET_CFLAGS:= -U_FORTIFY_SOURCE $(TARGET_OPTIMIZATION)$(if $(CONFIG_DEBUG), -g3) $(EXTRA_OPTIMIZATION)
@@ -37,6 +37,7 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-mu/.libs/libtss2-mu.so* $(1)/usr/lib
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-sys/.libs/libtss2-sys.so* $(1)/usr/lib
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-esys/.libs/libtss2-esys.so* $(1)/usr/lib/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-fapi/.libs/libtss2-fapi.so* $(1)/usr/lib/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-rc/.libs/libtss2-rc.so* $(1)/usr/lib/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-tcti/.libs/libtss2-tctildr.so* $(1)/usr/lib/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-tcti/.libs/libtss2-tcti-*.so* $(1)/usr/lib/
@@ -50,6 +51,7 @@ define Build/InstallDev
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-mu/.libs/libtss2-mu.so* $(1)/usr/lib
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-sys/.libs/libtss2-sys.so* $(1)/usr/lib
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-esys/.libs/libtss2-esys.so* $(1)/usr/lib/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-fapi/.libs/libtss2-fapi.so* $(1)/usr/lib/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-rc/.libs/libtss2-rc.so* $(1)/usr/lib/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-tcti/.libs/libtss2-tctildr.so* $(1)/usr/lib/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/tss2-tcti/.libs/libtss2-tcti-*.so* $(1)/usr/lib/
